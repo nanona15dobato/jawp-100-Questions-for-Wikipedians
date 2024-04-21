@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ウィキペディアンへの100の質問</title>
+  <style>
+    /* 基本的なスタイリング */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    h1 {
+        text-align: center;
+    }
+    
+    h2 {
+        color: #444;
+        text-align: center;
+    }
+    
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 1px 3px #ddd;
+        resize: vertical; /* ユーザーが縦サイズを調整できるように */
+    }
+    
+    button {
+        background-color: #5cb85c; /* Bootstrapのボタン色 */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #4cae4c; /* ホバー時の色 */
+    }
+    
+    /* 参考文（sanko）のスタイル */
+    [id^=sanko] {
+        font-size: 0.9em;
+        color: #888;
+        margin-bottom: 15px;
+    }
+
+    
+    /* 最初のセクション以外を非表示にする */
+    section:not(:first-of-type) {
+        display: none;
+    }
+    
+    /* 特定のクラスを持つセクションを表示する（JavaScriptで切り替える想定） */
+    section.active {
+        display: block;
+    }
+    
+    .bt {
+        text-align: center;
+        display: flex;
+    justify-content:space-around;
+    }
+  </style>
+</head>
+<body>
+  <h1>ウィキペディアンへの100の質問(日本語版オリジナル)</h1>
+  <section id="0">
+    <h2>パーソナル・データ</h2>
+    <label for="userName" name="userName">1.利用者名:</label>
+    <input type="text" id="userName" name="userName">
+    <button id="fetchUserData" name="userName">次へ</button>
+  </section>
+
+  <section id="1" style="display: none;">
+    <h2>パーソナル・データ</h2>
+    <label for="0102">2.Wikipediaを知ったのはいつ頃ですか？</label>
+    <textarea id="0102" name="0102" rows="3"></textarea>
+    <label for="0103">3.どのようにWikipediaを知りましたか？</label>
+    <textarea id="0103" name="0103" rows="3"></textarea>
+    <label for="0104">4.初めて記事の編集をしたのはいつ頃ですか？</label>
+    <p id="sanko1">参考：[初編集]<span id="sanko1-1"></span><br>[標準名前空間初編集]<span id="sanko1-2"></span></p>
+    <textarea id="0104" name="0104" rows="3"></textarea>
+    <label for="0105">5.それはどのような編集でしたか？　（誤字訂正/データの追加など）</label>
+    <p id="sanko2">参考：[記事名 - 要約]<span id="sanko2-1"></span> - <span id="sanko2-2"></span><br>[記事名 - 要約]<span id="sanko2-3"></span> - <span id="sanko2-4"></span></p>
+    <textarea id="0105" name="0105" rows="3"></textarea>
+    <label for="0106">6.初めて新規記事の投稿をしたのはそれからどのくらい後ですか？</label>
+    <p id="sanko3">参考：[初新規投稿]<span id="sanko3-1"></span><!--（差:<span id="sanko3-2"></span>--></p>
+    <textarea id="0106" name="0106" rows="3"></textarea>
+    <label for="0107">7.初めてログインをしたのはいつ頃ですか？</label>
+    <p id="sanko4">参考：[アカウント作成]<span id="sanko4-1"></span></p>
+    <textarea id="0107" name="0107" rows="3"></textarea>
+    <label for="0108">8.ログインしようと思ったきっかけは？</label>
+    <textarea id="0108" name="0108" rows="3"></textarea>
+    <label for="0109">9.ログインして良かったと思うことは？</label>
+    <textarea id="0109" name="0109" rows="3"></textarea>
+    <label for="0110">10.ログインして損したと思うことは？</label>
+    <textarea id="0110" name="0110" rows="3"></textarea>
+    <label for="0111">11.ログインしないと使えない機能（ウォッチリスト除く）を使ったことはありますか？</label>
+    <textarea id="0111" name="0111" rows="3"></textarea>
+    <label for="0112">12.今までの投稿数は？（複数アカウント・IPを含めるかは任意です）</label>
+    <p id="sanko5">参考：[編集回数]<span id="sanko5-1"></span></p>
+    <textarea id="0112" name="0112" rows="3"></textarea>
+    <label for="0113">13.現在、あなたがもっともアクティヴなウィキペディアで、アカウントを使い分けていますか？</label>
+    <textarea id="0113" name="0113" rows="3"></textarea>
+    <label for="0114">14.今までひとつのウィキペディア上で何アカウントを使用しましたか？</label>
+    <textarea id="0114" name="0114" rows="3"></textarea>
+    <label for="0115">15.ウェブサイト・ブログなどの個人用ページを持っていますか？　その場合、それにウィキペディアの話題をよく書きますか？</label>
+    <textarea id="0115" name="0115" rows="3"></textarea>
+    <div class="bt"><button id="back2">前へ</button><button id="next2">次へ</button></div>
+  </section>
+
+
+  <section id="2" style="display: none;">
+    <h2>編集の様子</h2>
+    <label for="0201">1.一か月に何回くらい記事を編集しますか？</label>
+    <p id="sanko6">参考：[直近1ヶ月の編集回数]<span id="sanko6-1"></span></p>
+    <textarea id="0201" name="0201" rows="3"></textarea>
+    <label for="0202">2.一か月に新規記事をどれだけ作りますか？</label>
+    <p id="sanko7">参考：[直近1ヶ月の新規記事数]<span id="sanko7-1"></span></p>
+    <textarea id="0202" name="0202" rows="3"></textarea>
+    <label for="0203">3.一か月にどれだけ画像をアップロードしますか？</label>
+    <textarea id="0203" name="0203" rows="3"></textarea>
+    <label for="0204">4.主に編集する時間帯は？（起きてすぐ・寝る前なども可）</label>
+    <textarea id="0204" name="0204" rows="3"></textarea>
+    <label for="0205">5.メンテナンス作業（いわゆる雑草取り）はよくしますか？</label>
+    <textarea id="0205" name="0205" rows="3"></textarea>
+    <label for="0206">6.ノートページをよく使いますか？</label>
+    <textarea id="0206" name="0206" rows="3"></textarea>
+    <label for="0207">7.一覧を新規作成したことがありますか？</label>
+    <textarea id="0207" name="0207" rows="3"></textarea>
+    <label for="0208">8.言語間リンクや他プロジェクトへのリンクはしますか？　するとしたらどのように？</label>
+    <textarea id="0208" name="0208" rows="3"></textarea>
+    <label for="0209">9.カテゴリのついてない記事を見つけたらカテゴリをつけますか？</label>
+    <textarea id="0209" name="0209" rows="3"></textarea>
+    <label for="0210">10.まだ成長していない記事を見つけたら、スタブ宣言をしますか？</label>
+    <textarea id="0210" name="0210" rows="3"></textarea>
+    <label for="0211">11.スタブ未満の記事を見つけたら、どうしますか？</label>
+    <textarea id="0211" name="0211" rows="3"></textarea>
+    <label for="0212">12.他言語版の項目からの翻訳をしたことはありますか？</label>
+    <textarea id="0212" name="0212" rows="3"></textarea>
+    <div class="bt"><button id="back3">前へ</button><button id="next3">次へ</button></div>
+  </section>
+
+
+  <section id="3" style="display: none;">
+    <h2>専門分野について</h2>
+    <label for="0301">1.あなたが書いた記事の中で一番良くできていると思う記事はなんですか？</label>
+    <textarea id="0301" name="0301" rows="3"></textarea>
+    <label for="0302">2.あなたの書いた記事が秀逸な記事になったことはありますか？</label>
+    <textarea id="0302" name="0302" rows="3"></textarea>
+    <label for="0303">3.あなたの投稿した画像が秀逸な画像になったことはありますか？（コモンズを含む）</label>
+    <textarea id="0303" name="0303" rows="3"></textarea>
+    <label for="0304">4.あなたの良く書き込む分野はなんですか？</label>
+    <textarea id="0304" name="0304" rows="3"></textarea>
+    <label for="0305">5.その分野はあなた以外にも書き込む人がいますか？</label>
+    <textarea id="0305" name="0305" rows="3"></textarea>
+    <label for="0306">6.あなたはその分野についてどれだけ良く知っていますか？</label>
+    <textarea id="0306" name="0306" rows="3"></textarea>
+    <label for="0307">7.あなたがその分野に惹かれる理由は？</label>
+    <textarea id="0307" name="0307" rows="3"></textarea>
+    <label for="0308">8.その分野の記事の内容は充実していますか？</label>
+    <textarea id="0308" name="0308" rows="3"></textarea>
+    <label for="0309">9.その分野にはウィキポータルがありますか？</label>
+    <textarea id="0309" name="0309" rows="3"></textarea>
+    <label for="0310">10.今後その分野のどのようなところを伸ばしていきたいですか？</label>
+    <textarea id="0310" name="0310" rows="3"></textarea>
+    <label for="0311">11.あなたの分野はWikipediaに貢献していると思いますか？</label>
+    <textarea id="0311" name="0311" rows="3"></textarea>
+    <label for="0312">12.自分が書いた記事がどれくらい引用されているかを検索したことがありますか？</label>
+    <textarea id="0312" name="0312" rows="3"></textarea>
+    <label for="0313">13.ずばり、あなたの編集はWikipediaに貢献していると思いますか？</label>
+    <textarea id="0313" name="0313" rows="3"></textarea>
+    <div class="bt"><button id="back4">前へ</button><button id="next4">次へ</button></div>
+  </section>
+
+
+  <section id="4" style="display: none;">
+    <h2>読者として見たウィキペディア</h2>
+    <label for="0401">1.執筆以外の目的でウィキペディアの記事を見ることがありますか？</label>
+    <textarea id="0401" name="0401" rows="3"></textarea>
+    <label for="0402">2.どのような目的で読みますか？（例：情報収集のため、知識欲を満足させるため、ただの暇つぶし etc）</label>
+    <textarea id="0402" name="0402" rows="3"></textarea>
+    <label for="0403">3.これまで読んだ記事の中でいちばん印象に残っているのは何ですか？</label>
+    <textarea id="0403" name="0403" rows="3"></textarea>
+    <label for="0404">4.ウィキペディアの記事の誤記を信じてしまったことはありますか？</label>
+    <textarea id="0404" name="0404" rows="3"></textarea>
+    <label for="0405">5.いまいちばん注目しているウィキペディアンは誰ですか？</label>
+    <textarea id="0405" name="0405" rows="3"></textarea>
+    <label for="0406">6.ずばり、ウィキペディアはあなたの役にたってますか？</label>
+    <textarea id="0406" name="0406" rows="3"></textarea>
+    <div class="bt"><button id="back5">前へ</button><button id="next5">次へ</button></div>
+  </section>
+
+  <section id="5" style="display: none;">
+    <h2>管理業務</h2>
+    <label for="0501">1.管理者とは何か知っていますか？</label>
+    <textarea id="0501" name="0501" rows="3"></textarea>
+    <label for="0502">2.あなたがアクティヴなウィキペディアで管理者になりたいですか？　あるいはすでに管理者ですか？</label>
+    <p id="sanko8">参考：[利用者グループ]<span id="sanko8-1"></span></p>
+    <textarea id="0502" name="0502" rows="3"></textarea>
+    <label for="0503">3.使ってみたい管理者の機能はありますか？</label>
+    <textarea id="0503" name="0503" rows="3"></textarea>
+    <label for="0504">4.あるのならばそれは何ですか？　あるいはすでに管理者の人は、どんな機能をもっともよく使いますか？</label>
+    <textarea id="0504" name="0504" rows="3"></textarea>
+    <label for="0505">5.管理者になってみないかといわれたことはありますか？</label>
+    <textarea id="0505" name="0505" rows="3"></textarea>
+    <label for="0506">6.もし断ったのなら、それはなぜですか？</label>
+    <textarea id="0506" name="0506" rows="3"></textarea>
+    <label for="0507">7.ビューロクラットになりたいですか？ あるいはすでにビューロクラットをしていますか？</label>
+    <p id="sanko8">参考：[利用者グループ]<span id="sanko8-2"></span></p>
+    <textarea id="0507" name="0507" rows="3"></textarea>
+    <label for="0508">8.管理業務は大変だと思いますか？</label>
+    <textarea id="0508" name="0508" rows="3"></textarea>
+    <label for="0509">9.それはなぜですか？</label>
+    <textarea id="0509" name="0509" rows="3"></textarea>
+    <label for="0510">10.あなたはどのような管理業務やメンテナンス作業をしていますか？</label>
+    <textarea id="0510" name="0510" rows="3"></textarea>
+    <label for="0511">11.開発者になりたいですか？</label>
+    <textarea id="0511" name="0511" rows="3"></textarea>
+    <label for="0512">12.Phabricatorには参加していますか？</label>
+    <textarea id="0512" name="0512" rows="3"></textarea>
+    <label for="0513">13.wikipedia-l にも参加していますか？</label>
+    <textarea id="0513" name="0513" rows="3"></textarea>
+    <label for="0514">14.さらにwikitech-lを読んでいたりする？</label>
+    <textarea id="0514" name="0514" rows="3"></textarea>
+    <label for="0515">15.管理者にとって一番大事なことは何だと思いますか？</label>
+    <textarea id="0515" name="0515" rows="3"></textarea>
+    <div class="bt"><button id="back6">前へ</button><button id="next6">次へ</button></div>
+  </section>
+
+  <section id="6" style="display: none;">
+    <h2>赦しを請う</h2>
+    <label for="0601">1.スタブを許せますか？</label>
+    <textarea id="0601" name="0601" rows="3"></textarea>
+    <label for="0602">2.あなたにとって、スタブとは？</label>
+    <textarea id="0602" name="0602" rows="3"></textarea>
+    <label for="0603">3.スタブ閾値はいくらにしていますか？</label>
+    <textarea id="0603" name="0603" rows="3"></textarea>
+    <label for="0604">4.スタブ未満を許せますか？</label>
+    <textarea id="0604" name="0604" rows="3"></textarea>
+    <label for="0605">5.あなたにとって、スタブ未満とは？</label>
+    <textarea id="0605" name="0605" rows="3"></textarea>
+    <label for="0606">6.自分でスタブメーカーだと思いますか？</label>
+    <textarea id="0606" name="0606" rows="3"></textarea>
+    <label for="0607">7.自分で{{stub}}（あるいはカテゴリ別スタブ）を貼らなかった項目に他人からスタブタグを足されたときに赦せますか？</label>
+    <textarea id="0607" name="0607" rows="3"></textarea>
+    <label for="0608">8.自分で書いた項目に即時削除タグを貼られたことはありますか？</label>
+    <textarea id="0608" name="0608" rows="3"></textarea>
+    <label for="0609">9.さらに自分で書いた項目が即時削除されたことはありますか？</label>
+    <textarea id="0609" name="0609" rows="3"></textarea>
+    <label for="0610">10.ウィキ化されていない記事を許せますか？</label>
+    <textarea id="0610" name="0610" rows="3"></textarea>
+    <label for="0611">11.読み仮名のついていない記事を許せますか？</label>
+    <textarea id="0611" name="0611" rows="3"></textarea>
+    <label for="0612">12.記事名強調の無い記事を許せますか？</label>
+    <textarea id="0612" name="0612" rows="3"></textarea>
+    <label for="0613">13.言語間リンクのない記事を許せますか？</label>
+    <textarea id="0613" name="0613" rows="3"></textarea>
+    <label for="0614">14.言語間リンクが作れない記事を許せますか？</label>
+    <textarea id="0614" name="0614" rows="3"></textarea>
+    <label for="0615">15.言語間リンクしかない記事でも許せますか？</label>
+    <textarea id="0615" name="0615" rows="3"></textarea>
+    <label for="0616">16.こんな質問を作ってしまった哀れな質問者や、こんなWebページを作ってしまった私を許してくれますか？</label>
+    <textarea id="0616" name="0616" rows="3"></textarea>
+<div class="bt"><button id="back7">前へ</button><button id="next7">次へ</button></div>
+  </section>
+
+  <section id="7" style="display: none;">
+    <h2>なんじWikipediaを愛せよ</h2>
+    <label for="0701">1.あなたはWikipediaを愛していますか？</label>
+    <textarea id="0701" name="0701" rows="3"></textarea>
+
+    <label for="0702">2.あなたはWikipediaの将来について楽観的？悲観的？</label>
+    <textarea id="0702" name="0702" rows="3"></textarea>
+
+    <label for="0703">3.Wikislowにイライラしたことはありますか？</label>
+    <textarea id="0703" name="0703" rows="3"></textarea>
+
+    <label for="0704">4.Wikislowのときは何をしていますか？</label>
+    <textarea id="0704" name="0704" rows="3"></textarea>
+
+    <label for="0705">5.Wikislow解消のためあなたができることは何だと思いますか？</label>
+    <textarea id="0705" name="0705" rows="3"></textarea>
+
+    <label for="0706">6.折角、編集したデータが管理者（削除者）の削除によって消えてしまったことはありますか？</label>
+    <textarea id="0706" name="0706" rows="3"></textarea>
+
+    <label for="0707">7.折角、編集したデータがブラウザ側の問題で消えてしまったことはありますか？</label>
+    <textarea id="0707" name="0707" rows="3"></textarea>
+
+    <label for="0708">8.ウィキメディア財団に寄付をしたことはありますか？</label>
+    <textarea id="0708" name="0708" rows="3"></textarea>
+
+    <label for="0709">9.ウィキペディアの執筆を主目的として購入した書籍・雑誌・映画などはありますか？</label>
+    <textarea id="0709" name="0709" rows="3"></textarea>
+
+    <label for="0710">10.今までに記事を読んだ量と書いた量のどちらが多いですか？</label>
+    <textarea id="0710" name="0710" rows="3"></textarea>
+
+    <label for="0711">11.実はウィキペディア中毒にかかっているのではないですか？</label>
+    <textarea id="0711" name="0711" rows="3"></textarea>
+
+    <label for="0712">12.WikipediaをWikiと略さずに呼んでいますか？もしくはWikiって略すなを遵守していますか？</label>
+    <textarea id="0712" name="0712" rows="3"></textarea>
+    <div class="bt"><button id="back8">前へ</button><button id="next8">次へ</button></div>
+  </section>
+
+  <section id="8" style="display: none;">
+    <h2>他のコミュニティ</h2>
+    <label for="0801">1.ウィキペディア以外のウィキメディア・プロジェクトにも参加していますか？</label>
+    <textarea id="0801" name="0801" rows="3"></textarea>
+    <label for="0802">2.ウィキペディア外のウィキペディア関係ネットコミュニティに参加したことがありますか？</label>
+    <textarea id="0802" name="0802" rows="3"></textarea>
+    <label for="0803">3.あなたが特によく見に行くウィキペディア関係のネットコミュニティはどこですか？</label>
+    <textarea id="0803" name="0803" rows="3"></textarea>
+    <label for="0804">4.ウィキペディアのオフラインミーティングに参加したことはありますか？</label>
+    <textarea id="0804" name="0804" rows="3"></textarea>
+    <label for="0805">5.ウィキマニアが開催されたら、参加するつもりですか？</label>
+    <textarea id="0805" name="0805" rows="3"></textarea>
+    <label for="0806">6.あなたの国でウィキマニアが開催されたらよいと思いますか？</label>
+    <textarea id="0806" name="0806" rows="3"></textarea>
+    <label for="0807">7.複数の言語のWikipediaにも参加していますか？</label>
+    <textarea id="0807" name="0807" rows="3"></textarea>
+    <div class="bt"><button id="back9">前へ</button><button id="next9">次へ</button></div>
+  </section>
+
+  <section id="9" style="display: none;">
+    <h2>その他</h2>
+    <label for="0901">1.結局、GFDLとCC BY-SAって何なのかしっかり理解できていますか？</label>
+    <textarea id="0901" name="0901" rows="3"></textarea>
+    <label for="0902">2.自分の独自仕様のcssを使っていますか？</label>
+    <textarea id="0902" name="0902" rows="3"></textarea>
+    <label for="0903">3.他のウィキペディアンになにか一言。</label>
+    <textarea id="0903" name="0903" rows="3"></textarea>
+    <label for="0904">4.最後にWikipediaになにか一言。</label>
+    <textarea id="0904" name="0904" rows="3"></textarea>
+    <button id="nextend">次へ</button>
+  </section>
+
+  <section id="end" style="display: none;">
+    <h2>以上です。</h2>
+　　<input type="text" id="textBox" readonly>
+<button id="copyButton">コピー</button>
+<button id="openButton">開く</button>
+  </section>
+
+  <script>
+    var sec = 0;
+    document.getElementById('fetchUserData').addEventListener('click', function() {
+    var userName = document.getElementById('userName').value;
+    fetchUserInfo(userName);
+});
+
+function fetchUserInfo(userName) {
+    var url = "https://ja.wikipedia.org/w/api.php";
+    var params = {
+        action: "query",
+        list: "users",
+        ususers: userName,
+        usprop: "groups|editcount|registration",
+        format: "json",
+        origin: "*"
+    };
+
+    url = url + "?" + new URLSearchParams(params).toString();
+
+    fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            var users = response.query.users;
+            if (users[0].userid) {
+                document.getElementById('sanko5-1').textContent = users[0].editcount + "回";
+                document.getElementById('0112').value = users[0].editcount + "回";
+                document.getElementById('sanko4-1').textContent = users[0].registration;
+                document.getElementById('0107').value = users[0].registration;
+                document.getElementById('sanko8-1').textContent = users[0].groups;
+                document.getElementById('sanko8-2').textContent = users[0].groups;
+                document.getElementById('0').style.display = 'none';
+                document.getElementById('1').style.display = 'block';
+                fetchUserInfo2(userName);
+                fetchUserInfo4(userName);
+                fetchUserInfo5(userName);
+            } else {
+                alert('ユーザーが見つかりませんでした。');
+            }
+        })
+        .catch(function(error) { console.log(error); });
+}
+
+function fetchUserInfo2(userName) {
+    var url = "https://ja.wikipedia.org/w/api.php";
+    var params = {
+        action: "query",
+        list: "usercontribs",
+        ucuser: userName,
+        ucdir: "newer",
+        uclimit: 1,
+        format: "json",
+        origin: "*"
+    };
+
+    url = url + "?" + new URLSearchParams(params).toString();
+
+    fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            var users = response.query.usercontribs;
+            if (users[0].revid) {
+                document.getElementById('sanko1-1').textContent = users[0].timestamp;
+                document.getElementById('0104').value = users[0].timestamp;
+                document.getElementById('sanko2-1').textContent = users[0].title;
+                document.getElementById('sanko2-2').textContent = users[0].comment;
+                document.getElementById('0105').value = users[0].comment;
+                if(users[0].ns!=0){
+                    fetchUserInfo3(userName);
+                }else{
+                    document.getElementById('sanko2-3').textContent = "同上";
+                document.getElementById('sanko2-3').textContent = "同上";
+                }
+            } else {
+                alert('最初の編集の取得でエラーが発生しました。');
+            }
+        })
+        .catch(function(error) { console.log(error); });
+}
+
+function fetchUserInfo3(userName) {
+    var url = "https://ja.wikipedia.org/w/api.php";
+    var params = {
+        action: "query",
+        list: "usercontribs",
+        ucuser: userName,
+        ucdir: "newer",
+        ucnamespace: 0,
+        uclimit: 1,
+        format: "json",
+        origin: "*"
+    };
+
+    url = url + "?" + new URLSearchParams(params).toString();
+
+    fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            var users = response.query.usercontribs;
+            if (users[0].revid) {
+                document.getElementById('sanko1-2').textContent = users[0].timestamp;
+                document.getElementById('sanko2-3').textContent = users[0].title;
+                document.getElementById('sanko2-4').textContent = users[0].comment;
+            } else {
+                alert('最初の標準名前空間の編集の取得でエラーが発生しました。');
+            }
+        })
+        .catch(function(error) { console.log(error); });
+}
+
+function fetchUserInfo4(userName) {
+    var url = "https://ja.wikipedia.org/w/api.php";
+    var params = {
+        action: "query",
+        list: "usercontribs",
+        ucuser: userName,
+        ucdir: "newer",
+        ucshow: "new",
+        uclimit: 1,
+        format: "json",
+        origin: "*"
+    };
+
+    url = url + "?" + new URLSearchParams(params).toString();
+
+    fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            var users = response.query.usercontribs;
+            if (users[0].revid) {
+                document.getElementById('sanko3-1').textContent = users[0].timestamp + "(" + users[0].title + ")";
+                document.getElementById('0106').value = users[0].timestamp;
+            } else {
+                alert('最初の新規作成記事の取得でエラーが発生しました。');
+            }
+        })
+        .catch(function(error) { console.log(error); });
+}
+
+function fetchUserInfo5(userName) {
+    const now = new Date();
+const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+const iso8601String = oneMonthAgo.toISOString();
+    var url = "https://ja.wikipedia.org/w/api.php";
+    var params = {
+        action: "query",
+        list: "usercontribs",
+        ucuser: userName,
+        uclimit: "500",
+        ucend: iso8601String,
+        format: "json",
+        origin: "*"
+    };
+
+    url = url + "?" + new URLSearchParams(params).toString();
+
+    fetch(url)
+        .then(function(response) { return response.json(); })
+        .then(function(response) {
+            var users = response.query.usercontribs;
+            if (users[0].revid) {
+                ;
+                document.getElementById('sanko6-1').textContent = Object.keys(users).length + "回";
+                document.getElementById('0201').value = Object.keys(users).length + "回";
+                var sinsuu = countMatchingElements(users);
+                document.getElementById('sanko7-1').textContent = sinsuu + "回";
+                document.getElementById('0202').value = sinsuu + "回";
+            } else {
+                alert('直近1ヶ月新規作成記事の取得でエラーが発生しました。');
+            }
+        })
+        .catch(function(error) { console.log(error); });
+}
+
+
+function countMatchingElements(obj) {
+  let count = 0;
+
+  function search(obj) {
+    if (Array.isArray(obj)) {
+      // 配列の場合、各要素に対してsearchを再帰的に呼び出す
+      obj.forEach(element => search(element));
+    } else if (typeof obj === 'object' && obj !== null) {
+      // オブジェクトの場合
+      if (obj.hasOwnProperty('new') && obj.new === "") {
+        // 条件に一致した場合、カウントを増やす
+        count++;
+      }
+      // オブジェクトの各プロパティに対してsearchを再帰的に呼び出す
+      Object.values(obj).forEach(value => search(value));
+    }
+  }
+
+  search(obj); // 再帰的検索を開始
+  return count;
+}
+/*
+document.getElementById('logAnswers').addEventListener('click', function() {
+    var editCount = document.getElementById('editCountInput').value;
+    var age = document.getElementById('ageInput').value;
+    console.log('編集回数: ' + editCount + ', 年齢: ' + age);
+});
+*/
+document.getElementById('next2').addEventListener('click', function() {
+    document.getElementById('1').style.display = 'none';
+    document.getElementById('2').style.display = 'block';
+});
+document.getElementById('next3').addEventListener('click', function() {
+    document.getElementById('2').style.display = 'none';
+    document.getElementById('3').style.display = 'block';
+});
+document.getElementById('next4').addEventListener('click', function() {
+    document.getElementById('3').style.display = 'none';
+    document.getElementById('4').style.display = 'block';
+});
+document.getElementById('next5').addEventListener('click', function() {
+    document.getElementById('4').style.display = 'none';
+    document.getElementById('5').style.display = 'block';
+});
+document.getElementById('next6').addEventListener('click', function() {
+    document.getElementById('5').style.display = 'none';
+    document.getElementById('6').style.display = 'block';
+});
+document.getElementById('next7').addEventListener('click', function() {
+    document.getElementById('6').style.display = 'none';
+    document.getElementById('7').style.display = 'block';
+});
+document.getElementById('next8').addEventListener('click', function() {
+    document.getElementById('7').style.display = 'none';
+    document.getElementById('8').style.display = 'block';
+});
+document.getElementById('next9').addEventListener('click', function() {
+    document.getElementById('8').style.display = 'none';
+    document.getElementById('9').style.display = 'block';
+});
+document.getElementById('back2').addEventListener('click', function() {
+    document.getElementById('1').style.display = 'none';
+    document.getElementById('0').style.display = 'block';
+});
+document.getElementById('back3').addEventListener('click', function() {
+    document.getElementById('2').style.display = 'none';
+    document.getElementById('1').style.display = 'block';
+});
+document.getElementById('back4').addEventListener('click', function() {
+    document.getElementById('3').style.display = 'none';
+    document.getElementById('2').style.display = 'block';
+});
+document.getElementById('back5').addEventListener('click', function() {
+    document.getElementById('4').style.display = 'none';
+    document.getElementById('3').style.display = 'block';
+});
+document.getElementById('back6').addEventListener('click', function() {
+    document.getElementById('5').style.display = 'none';
+    document.getElementById('4').style.display = 'block';
+});
+document.getElementById('back7').addEventListener('click', function() {
+    document.getElementById('6').style.display = 'none';
+    document.getElementById('5').style.display = 'block';
+});
+document.getElementById('back8').addEventListener('click', function() {
+    document.getElementById('7').style.display = 'none';
+    document.getElementById('6').style.display = 'block';
+});
+document.getElementById('back9').addEventListener('click', function() {
+    document.getElementById('8').style.display = 'none';
+    document.getElementById('7').style.display = 'block';
+});
+
+  </script>
+</body>
+</html>
