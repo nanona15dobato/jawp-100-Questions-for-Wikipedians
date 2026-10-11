@@ -1,0 +1,6 @@
+{
+  "extends": "https://raw.githubusercontent.com/nanona15dobato/nanona15dobato.github.io/main/nanona.site.json",
+  "basePath": "/jawp-100-Questions-for-Wikipedians/",
+  "siteUrl": "https://github.nanona.me/jawp-100-Questions-for-Wikipedians/",
+  "exclude": ["README.md"]
+}
